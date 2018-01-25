@@ -1,0 +1,12 @@
+package com.ronnnnn.data.giphy.common.entity.image
+
+import com.squareup.moshi.Json
+
+/**
+ * Created by kokushiseiya on 2018/01/26.
+ */
+data class Looping(
+        val mp4: String,
+        @Json(name = "mp4_size")
+        val mp4Size: String
+)
