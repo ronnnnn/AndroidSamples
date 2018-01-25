@@ -56,7 +56,3 @@ app/production.jks
 
 # Properties
 secret.properties
-app/libs/
-app/src/main/kotlin/
-data/libs/
-data/src/main/res/drawable/
