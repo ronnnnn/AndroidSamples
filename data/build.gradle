@@ -4,10 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -23,8 +23,10 @@ android {
     }
 }
 
-def retrofit = '2.3.0'
 def dagger = "2.14.1"
+def retrofit = '2.3.0'
+def okHttp3 = '3.9.1'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -39,9 +41,10 @@ dependencies {
     // Dagger
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
-    implementation "com.google.dagger:dagger-android:$dagger"
-    implementation "com.google.dagger:dagger-android-support:$dagger"
-    kapt "com.google.dagger:dagger-android-processor:$dagger"
+
+    // OkHttp
+    implementation "com.squareup.okhttp3:okhttp:$okHttp3"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttp3"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
