@@ -9,8 +9,8 @@ import javax.inject.Inject
 /**
  * Created by kokushiseiya on 2018/02/08.
  */
-class GetTrending @Inject constructor(private val gifsRepository: GifsRepository) {
+class TrendingUseCase @Inject constructor(private val gifsRepository: GifsRepository) {
 
     @CheckResult
-    fun invoke(): Single<TrendingData> = gifsRepository.getTrending()
+    fun get(): Single<TrendingData> = gifsRepository.getTrending()
 }

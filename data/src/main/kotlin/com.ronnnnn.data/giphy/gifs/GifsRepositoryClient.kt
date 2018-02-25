@@ -1,14 +1,20 @@
 package com.ronnnnn.data.giphy.gifs
 
 import com.ronnnnn.data.giphy.gifs.entity.*
+import com.ronnnnn.data.giphy.gifs.local.GifsDb
 import com.ronnnnn.data.giphy.gifs.remote.GifsApi
+import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
 /**
  * Created by kokushiseiya on 2018/01/27.
  */
-class GifsRepositoryClient @Inject constructor(private val gifsApi: GifsApi) : GifsRepository {
+class GifsRepositoryClient @Inject constructor(
+        private val gifsApi: GifsApi,
+        private val gifsDb: GifsDb
+) : GifsRepository {
 
     override fun getSearch(
             query: String,
@@ -31,11 +37,15 @@ class GifsRepositoryClient @Inject constructor(private val gifsApi: GifsApi) : G
     override fun getTranslate(searchTerm: String): Single<TranslateData> =
             gifsApi.getTranslate(searchTerm)
 
-    override fun getRandom(
+    override fun fetchRandom(
             tag: String,
             rating: String,
             format: String
-    ): Single<RandomData> = gifsApi.getRandom(tag, rating, format)
+    ): Completable =
+            gifsApi.getRandom(tag, rating, format)
+                    .flatMapCompletable { randomData -> gifsDb.updateRandom(randomData) }
+
+    override fun observeRandom(): Flowable<RandomData> = gifsDb.observeRandom()
 
     override fun getGifById(gifId: String): Single<GifByIdData> = gifsApi.getGifById(gifId)
 

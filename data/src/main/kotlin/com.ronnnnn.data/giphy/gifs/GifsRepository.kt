@@ -1,6 +1,8 @@
 package com.ronnnnn.data.giphy.gifs
 
 import com.ronnnnn.data.giphy.gifs.entity.*
+import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 /**
@@ -26,11 +28,13 @@ interface GifsRepository {
 
     fun getTranslate(searchTerm: String): Single<TranslateData>
 
-    fun getRandom(
+    fun fetchRandom(
             tag: String = "",
             rating: String = "",
             format: String = "json"
-    ): Single<RandomData>
+    ): Completable
+
+    fun observeRandom(): Flowable<RandomData>
 
     fun getGifById(gifId: String): Single<GifByIdData>
 
