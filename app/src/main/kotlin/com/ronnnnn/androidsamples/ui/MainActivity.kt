@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         component.inject(this)
 
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).run {
+            setLifecycleOwner(this@MainActivity)
             viewModel = mainViewModel
         }
     }

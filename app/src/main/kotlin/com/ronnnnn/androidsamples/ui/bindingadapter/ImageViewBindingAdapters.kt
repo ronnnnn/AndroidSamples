@@ -9,7 +9,7 @@ import com.ronnnnn.androidsamples.GlideApp
  */
 
 @BindingAdapter("imageUrl")
-fun ImageView.load(imageUrl: String) {
+fun ImageView.load(imageUrl: String?) {
     GlideApp.with(context)
             .load(imageUrl)
             .into(this)
