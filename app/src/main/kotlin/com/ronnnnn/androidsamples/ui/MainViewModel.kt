@@ -1,7 +1,7 @@
 package com.ronnnnn.androidsamples.ui
 
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableField
 import com.ronnnnn.androidsamples.domain.random.RandomUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -13,8 +13,8 @@ import javax.inject.Inject
  */
 class MainViewModel @Inject constructor(private val randomUseCase: RandomUseCase) : ViewModel() {
 
-    val title: ObservableField<String> = ObservableField("")
-    val imageUrl: ObservableField<String> = ObservableField("")
+    val title: MutableLiveData<String> = MutableLiveData()
+    val imageUrl: MutableLiveData<String> = MutableLiveData()
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -22,8 +22,8 @@ class MainViewModel @Inject constructor(private val randomUseCase: RandomUseCase
         randomUseCase.observe()
                 .subscribeOn(Schedulers.io())
                 .subscribe({ randomData ->
-                    title.set(randomData.data.title)
-                    imageUrl.set(randomData.data.images.downsizedMedium.url)
+                    title.postValue(randomData.data.title)
+                    imageUrl.postValue(randomData.data.images.downsizedMedium.url)
                 })
                 .let { compositeDisposable.add(it) }
         fetchRandomData()
@@ -34,7 +34,7 @@ class MainViewModel @Inject constructor(private val randomUseCase: RandomUseCase
     }
 
     private fun fetchRandomData() {
-        randomUseCase.fetch("funny")
+        randomUseCase.fetch("harry potter")
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                     Timber.d("fetch succeed")

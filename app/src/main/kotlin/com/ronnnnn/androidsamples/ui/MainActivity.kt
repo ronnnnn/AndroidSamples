@@ -1,5 +1,6 @@
 package com.ronnnnn.androidsamples.ui
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -9,6 +10,7 @@ import com.ronnnnn.androidsamples.R
 import com.ronnnnn.androidsamples.databinding.ActivityMainBinding
 import com.ronnnnn.androidsamples.di.ActivityScope
 import com.ronnnnn.androidsamples.di.AppComponent
+import com.ronnnnn.androidsamples.ui.bindingadapter.load
 import com.ronnnnn.androidsamples.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
@@ -34,9 +36,19 @@ class MainActivity : AppCompatActivity() {
 
         component.inject(this)
 
-        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).run {
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
             viewModel = mainViewModel
         }
+
+        mainViewModel.imageUrl.observe(this, Observer {
+            it ?: return@Observer
+            binding.gifImageView.load(it)
+        })
+
+        mainViewModel.title.observe(this, Observer {
+            it ?: return@Observer
+            binding.titleTextView.text = it
+        })
     }
 
     @ActivityScope
