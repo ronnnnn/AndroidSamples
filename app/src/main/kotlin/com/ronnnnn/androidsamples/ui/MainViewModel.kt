@@ -24,8 +24,8 @@ class MainViewModel @Inject constructor(private val randomUseCase: RandomUseCase
                 .subscribe({ randomData ->
                     title.set(randomData.data.title)
                     imageUrl.set(randomData.data.images.downsizedMedium.url)
-                })
-                .let { compositeDisposable.add(it) }
+                }).let { compositeDisposable.add(it) }
+
         fetchRandomData()
     }
 
@@ -34,7 +34,7 @@ class MainViewModel @Inject constructor(private val randomUseCase: RandomUseCase
     }
 
     private fun fetchRandomData() {
-        randomUseCase.fetch("funny")
+        randomUseCase.fetch("harry potter")
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                     Timber.d("fetch succeed")
