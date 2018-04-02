@@ -3,7 +3,10 @@ package com.ronnnnn.data.giphy.gifs
 import android.arch.lifecycle.LiveData
 import android.arch.paging.PagedList
 import com.ronnnnn.data.giphy.common.entity.Gif
-import com.ronnnnn.data.giphy.gifs.entity.*
+import com.ronnnnn.data.giphy.gifs.entity.GifByIdData
+import com.ronnnnn.data.giphy.gifs.entity.GifsByIdsData
+import com.ronnnnn.data.giphy.gifs.entity.RandomData
+import com.ronnnnn.data.giphy.gifs.entity.TranslateData
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -13,14 +16,14 @@ import io.reactivex.Single
  */
 interface GifsRepository {
 
-    fun getSearch(
+    fun observeSearch(
             query: String,
             limit: Int = 25,
             offset: Int = 0,
             rating: String = "",
             language: String = "",
             format: String = "json"
-    ): Single<SearchData>
+    ): LiveData<PagedList<Gif>>
 
     fun observeTrending(
             limit: Int = 25,

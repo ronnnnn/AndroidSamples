@@ -3,17 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/parentConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/mainToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/mainToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                app:layout_constraintBottom_toTopOf="@+id/mainViewPager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/mainSearchView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:visibility="invisible" />
+        </FrameLayout>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/mainBottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/parentConstraintLayout"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/menu_main_bottom_navigation" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/mainViewPager"
@@ -22,7 +46,6 @@
             app:layout_constraintBottom_toTopOf="@+id/mainBottomNavigationView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_weight="1" />
+            app:layout_constraintTop_toBottomOf="@+id/mainToolbarLayout" />
     </android.support.constraint.ConstraintLayout>
 </layout>

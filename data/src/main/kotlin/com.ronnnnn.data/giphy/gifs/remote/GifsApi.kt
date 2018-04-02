@@ -16,7 +16,7 @@ interface GifsApi {
             rating: String,
             language: String,
             format: String
-    ): Single<SearchData>
+    ): Call<SearchData>
 
     fun getTrending(
             limit: Int,

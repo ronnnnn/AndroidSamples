@@ -1,4 +1,4 @@
-package com.ronnnnn.data.giphy.gifs.datasource
+package com.ronnnnn.data.giphy.gifs.datasource.trending
 
 import android.arch.paging.DataSource
 import com.ronnnnn.data.giphy.common.entity.Gif

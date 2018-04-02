@@ -23,7 +23,7 @@ class GifsApiClient @Inject constructor(context: Context, retrofit: Retrofit) : 
             rating: String,
             language: String,
             format: String
-    ): Single<SearchData> =
+    ): Call<SearchData> =
             service.getSearch(apiKey, query, limit, offset, rating, language, format)
 
     override fun getTrending(

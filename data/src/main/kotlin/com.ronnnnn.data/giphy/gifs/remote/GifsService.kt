@@ -28,7 +28,7 @@ interface GifsService {
             language: String,
             @Query("fmt")
             format: String
-    ): Single<SearchData>
+    ): Call<SearchData>
 
     @GET("gifs/trending")
     fun getTrending(

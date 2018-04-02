@@ -2,6 +2,7 @@ package com.ronnnnn.androidsamples.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.ronnnnn.androidsamples.ui.main.MainViewModel
 import com.ronnnnn.androidsamples.ui.trending.TrendingViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -14,6 +15,11 @@ import kotlin.reflect.KClass
  */
 @Module
 abstract class ViewModelModule {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
 
     @Binds
     @IntoMap

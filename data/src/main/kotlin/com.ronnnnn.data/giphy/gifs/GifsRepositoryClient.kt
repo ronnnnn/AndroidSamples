@@ -4,8 +4,12 @@ import android.arch.lifecycle.LiveData
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.ronnnnn.data.giphy.common.entity.Gif
-import com.ronnnnn.data.giphy.gifs.datasource.TrendingDataSourceFactory
-import com.ronnnnn.data.giphy.gifs.entity.*
+import com.ronnnnn.data.giphy.gifs.datasource.search.SearchDataSoueceFactory
+import com.ronnnnn.data.giphy.gifs.datasource.trending.TrendingDataSourceFactory
+import com.ronnnnn.data.giphy.gifs.entity.GifByIdData
+import com.ronnnnn.data.giphy.gifs.entity.GifsByIdsData
+import com.ronnnnn.data.giphy.gifs.entity.RandomData
+import com.ronnnnn.data.giphy.gifs.entity.TranslateData
 import com.ronnnnn.data.giphy.gifs.local.GifsDb
 import com.ronnnnn.data.giphy.gifs.remote.GifsApi
 import io.reactivex.Completable
@@ -21,15 +25,25 @@ class GifsRepositoryClient @Inject constructor(
         private val gifsDb: GifsDb
 ) : GifsRepository {
 
-    override fun getSearch(
+    override fun observeSearch(
             query: String,
             limit: Int,
             offset: Int,
             rating: String,
             language: String,
             format: String
-    ): Single<SearchData> =
-            gifsApi.getSearch(query, limit, offset, rating, language, format)
+    ): LiveData<PagedList<Gif>> {
+        val dataSourceFactory = SearchDataSoueceFactory(query, gifsApi)
+
+        val config = PagedList.Config.Builder()
+                .setInitialLoadSizeHint(limit)
+                .setPageSize(limit)
+                .setEnablePlaceholders(false)
+                .build()
+
+        return LivePagedListBuilder(dataSourceFactory, config)
+                .build()
+    }
 
     override fun observeTrending(
             limit: Int,
