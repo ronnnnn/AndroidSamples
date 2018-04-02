@@ -1,9 +1,10 @@
 package com.ronnnnn.androidsamples.domain.trending
 
+import android.arch.lifecycle.LiveData
+import android.arch.paging.PagedList
 import android.support.annotation.CheckResult
+import com.ronnnnn.data.giphy.common.entity.Gif
 import com.ronnnnn.data.giphy.gifs.GifsRepository
-import com.ronnnnn.data.giphy.gifs.entity.TrendingData
-import io.reactivex.Single
 import javax.inject.Inject
 
 /**
@@ -12,5 +13,5 @@ import javax.inject.Inject
 class TrendingUseCase @Inject constructor(private val gifsRepository: GifsRepository) {
 
     @CheckResult
-    fun get(): Single<TrendingData> = gifsRepository.getTrending()
+    fun observe(): LiveData<PagedList<Gif>> = gifsRepository.observeTrending()
 }

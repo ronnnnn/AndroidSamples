@@ -2,7 +2,7 @@ package com.ronnnnn.androidsamples.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.ronnnnn.androidsamples.ui.MainViewModel
+import com.ronnnnn.androidsamples.ui.trending.TrendingViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -17,8 +17,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(MainViewModel::class)
-    abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
+    @ViewModelKey(TrendingViewModel::class)
+    abstract fun bindTrendingViewModel(viewModel: TrendingViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

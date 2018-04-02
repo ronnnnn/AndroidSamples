@@ -2,6 +2,7 @@ package com.ronnnnn.data.giphy.gifs.remote
 
 import com.ronnnnn.data.giphy.gifs.entity.*
 import io.reactivex.Single
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -41,7 +42,7 @@ interface GifsService {
             rating: String,
             @Query("fmt")
             format: String
-    ): Single<TrendingData>
+    ): Call<TrendingData>
 
     @GET("gifs/translate")
     fun getTranslate(

@@ -1,5 +1,10 @@
 package com.ronnnnn.data.giphy.gifs
 
+import android.arch.lifecycle.LiveData
+import android.arch.paging.LivePagedListBuilder
+import android.arch.paging.PagedList
+import com.ronnnnn.data.giphy.common.entity.Gif
+import com.ronnnnn.data.giphy.gifs.datasource.TrendingDataSourceFactory
 import com.ronnnnn.data.giphy.gifs.entity.*
 import com.ronnnnn.data.giphy.gifs.local.GifsDb
 import com.ronnnnn.data.giphy.gifs.remote.GifsApi
@@ -26,13 +31,23 @@ class GifsRepositoryClient @Inject constructor(
     ): Single<SearchData> =
             gifsApi.getSearch(query, limit, offset, rating, language, format)
 
-    override fun getTrending(
+    override fun observeTrending(
             limit: Int,
             offset: Int,
             rating: String,
             format: String
-    ): Single<TrendingData> =
-            gifsApi.getTrending(limit, offset, rating, format)
+    ): LiveData<PagedList<Gif>> {
+        val dataSourceFactory = TrendingDataSourceFactory(gifsApi)
+
+        val config = PagedList.Config.Builder()
+                .setInitialLoadSizeHint(limit)
+                .setPageSize(limit)
+                .setEnablePlaceholders(false)
+                .build()
+
+        return LivePagedListBuilder(dataSourceFactory, config)
+                .build()
+    }
 
     override fun getTranslate(searchTerm: String): Single<TranslateData> =
             gifsApi.getTranslate(searchTerm)

@@ -1,5 +1,8 @@
 package com.ronnnnn.data.giphy.gifs
 
+import android.arch.lifecycle.LiveData
+import android.arch.paging.PagedList
+import com.ronnnnn.data.giphy.common.entity.Gif
 import com.ronnnnn.data.giphy.gifs.entity.*
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -19,12 +22,12 @@ interface GifsRepository {
             format: String = "json"
     ): Single<SearchData>
 
-    fun getTrending(
+    fun observeTrending(
             limit: Int = 25,
             offset: Int = 0,
             rating: String = "",
             format: String = "json"
-    ): Single<TrendingData>
+    ): LiveData<PagedList<Gif>>
 
     fun getTranslate(searchTerm: String): Single<TranslateData>
 

@@ -2,6 +2,7 @@ package com.ronnnnn.data.giphy.gifs.remote
 
 import com.ronnnnn.data.giphy.gifs.entity.*
 import io.reactivex.Single
+import retrofit2.Call
 
 /**
  * Created by kokushiseiya on 2018/01/27.
@@ -22,7 +23,7 @@ interface GifsApi {
             offset: Int,
             rating: String,
             format: String
-    ): Single<TrendingData>
+    ): Call<TrendingData>
 
     fun getTranslate(
             searchTerm: String

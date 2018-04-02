@@ -4,6 +4,7 @@ import android.content.Context
 import com.ronnnnn.data.R
 import com.ronnnnn.data.giphy.gifs.entity.*
 import io.reactivex.Single
+import retrofit2.Call
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -30,7 +31,7 @@ class GifsApiClient @Inject constructor(context: Context, retrofit: Retrofit) : 
             offset: Int,
             rating: String,
             format: String
-    ): Single<TrendingData> =
+    ): Call<TrendingData> =
             service.getTrending(apiKey, limit, offset, rating, format)
 
     override fun getTranslate(searchTerm: String): Single<TranslateData> =

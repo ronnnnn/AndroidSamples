@@ -27,8 +27,8 @@ android {
     }
 }
 
-def aac =  '1.1.0'
-def support_lib = '26.1.0'
+def aac =  '1.1.1'
+def support_lib = '27.1.0'
 def dagger = '2.14.1'
 def retrofit = '2.3.0'
 def okHttp3 = '3.9.1'
@@ -43,15 +43,17 @@ dependencies {
 
     // Support Library
     implementation "com.android.support:appcompat-v7:$support_lib"
+    implementation "com.android.support:recyclerview-v7:$support_lib"
+    implementation "com.android.support:support-v4:$support_lib"
+    implementation "com.android.support:design:$support_lib"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     // AAC
     implementation "android.arch.lifecycle:runtime:$aac"
     implementation "android.arch.lifecycle:extensions:$aac"
     kapt "android.arch.lifecycle:compiler:$aac"
     implementation "android.arch.lifecycle:reactivestreams:$aac"
-
-    // Data Binding
-    kapt "com.android.databinding:compiler:$android_plugin_version"
+    implementation "android.arch.paging:runtime:1.0.0-alpha7"
 
     // Reactive Stream
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
